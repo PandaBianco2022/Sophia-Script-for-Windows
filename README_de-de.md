@@ -60,7 +60,7 @@
 
 ***
 
-<a href="https://github.com/farag2/Sophia-Script-for-Windows/releases/latest"><img src="https://raw.githubusercontent.com/farag2/Sophia-Script-for-Windows/master/img/get-it-on-github.svgg" width="50%" height="50%"></a>
+<a href="https://github.com/farag2/Sophia-Script-for-Windows/releases/latest"><img src="https://github.com/farag2/Sophia-Script-for-Windows/raw/refs/heads/master/img/get-it-on-github.svg" width="50%" height="50%"></a>
 
 ***
 
