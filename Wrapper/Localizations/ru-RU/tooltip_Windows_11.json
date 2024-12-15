@@ -519,20 +519,6 @@
   },
   {
     "Region": "UI & Personalization",
-    "Function": "CopilotButton",
-    "Arg": {
-      "Zero": {
-        "Tag": "Hide",
-        "ToolTip": "Скрыть кнопку Copilot с панели задач."
-      },
-      "One": {
-        "Tag": "Show",
-        "ToolTip": "Отобразить кнопку Copilot на панели задач (значение по умолчанию)."
-      }
-    }
-  },
-  {
-    "Region": "UI & Personalization",
     "Function": "TaskViewButton",
     "Arg": {
       "Zero": {
@@ -836,34 +822,6 @@
   },
   {
     "Region": "System",
-    "Function": "StorageSenseFrequency",
-    "Arg": {
-      "Zero": {
-        "Tag": "Month",
-        "ToolTip": "Запускать Контроль памяти каждый месяц."
-      },
-      "One": {
-        "Tag": "Default",
-        "ToolTip": "Запускать Контроль памяти, когда остается мало место на диске (значение по умолчанию)."
-      }
-    }
-  },
-  {
-    "Region": "System",
-    "Function": "StorageSenseTempFiles",
-    "Arg": {
-      "Zero": {
-        "Tag": "Enable",
-        "ToolTip": "Автоматически очищать временные файлы системы и приложений (значение по умолчанию)."
-      },
-      "One": {
-        "Tag": "Disable",
-        "ToolTip": "Не очищать временные файлы системы и приложений."
-      }
-    }
-  },
-  {
-    "Region": "System",
     "Function": "Hibernation",
     "Arg": {
       "Zero": {
@@ -915,20 +873,6 @@
       "One": {
         "Tag": "Default",
         "ToolTip": "Настройка уведомления об изменении параметров компьютера: уведомлять меня только при попытках приложений внести изменения в компьютер (значение по умолчанию)."
-      }
-    }
-  },
-  {
-    "Region": "System",
-    "Function": "MappedDrivesAppElevatedAccess",
-    "Arg": {
-      "Zero": {
-        "Tag": "Enable",
-        "ToolTip": "Включить доступ к сетевым дискам при включенном режиме одобрения администратором при доступе из программ, запущенных с повышенными правами."
-      },
-      "One": {
-        "Tag": "Disable",
-        "ToolTip": "Выключить доступ к сетевым дискам при включенном режиме одобрения администратором при доступе из программ, запущенных с повышенными правами (значение по умолчанию)."
       }
     }
   },
@@ -1369,15 +1313,15 @@
   {
     "Region": "System",
     "Function": "InstallDotNetRuntimes -Runtimes",
-    "ToolTip": "Установить последнюю версию .NET Desktop Runtime 6, 8 x64.",
+    "ToolTip": "Установить последнюю версию .NET Desktop Runtime 8, 9 x64.",
     "Arg": {
       "Zero": {
-        "Tag": "NET6x64",
-        "ToolTip": ".NET Desktop Runtime 6 x64."
+        "Tag": "NET9x64",
+        "ToolTip": ".NET Desktop Runtime 8 x64."
       },
       "One": {
-        "Tag": "NET8x64",
-        "ToolTip": ".NET Desktop Runtime 8 x64."
+        "Tag": "NET9x64",
+        "ToolTip": ".NET Desktop Runtime 9 x64."
       }
     }
   },
@@ -1406,20 +1350,6 @@
       "One": {
         "Tag": "Disable",
         "ToolTip": "Не предотвращать создание ярлыков на рабочем столе при обновлении Microsoft Edge (значение по умолчанию)."
-      }
-    }
-  },
-  {
-    "Region": "System",
-    "Function": "SATADrivesRemovableMedia",
-    "Arg": {
-      "Zero": {
-        "Tag": "Disable",
-        "ToolTip": "Запретить отображать все внутренние SATA-диски как съемные носители в области уведомлений на панели задач."
-      },
-      "One": {
-        "Tag": "Default",
-        "ToolTip": "Отображать все внутренние SATA-диски как съемные носители в области уведомлений на панели задач (значение по умолчанию)."
       }
     }
   },
@@ -1496,20 +1426,6 @@
       "One": {
         "Tag": "Enable",
         "ToolTip": "Включить автозагрузку Кортана (значение по умолчанию)."
-      }
-    }
-  },
-  {
-    "Region": "UWP apps",
-    "Function": "TeamsAutostart",
-    "Arg": {
-      "Zero": {
-        "Tag": "Disable",
-        "ToolTip": "Выключить автозагрузку Microsoft Teams."
-      },
-      "One": {
-        "Tag": "Enable",
-        "ToolTip": "Включить автозагрузку Microsoft Teams (значение по умолчанию)."
       }
     }
   },

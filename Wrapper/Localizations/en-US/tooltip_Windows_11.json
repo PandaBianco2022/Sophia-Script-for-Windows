@@ -361,11 +361,11 @@
     "Arg": {
       "Zero": {
         "Tag": "Disable",
-        "ToolTip": "Disable the File Explorer compact mode (default value)."
+        "ToolTip": "Disable File Explorer compact mode (default value)."
       },
       "One": {
         "Tag": "Enable",
-        "ToolTip": "Enable the File Explorer compact mode."
+        "ToolTip": "Enable File Explorer compact mode."
       }
     }
   },
@@ -514,20 +514,6 @@
       "One": {
         "Tag": "Show",
         "ToolTip": "Show search highlights (default value)."
-      }
-    }
-  },
-  {
-    "Region": "UI & Personalization",
-    "Function": "CopilotButton",
-    "Arg": {
-      "Zero": {
-        "Tag": "Hide",
-        "ToolTip": "Hide Copilot button on the taskbar."
-      },
-      "One": {
-        "Tag": "Show",
-        "ToolTip": "Show Copilot button on the taskbar (default value)."
       }
     }
   },
@@ -836,34 +822,6 @@
   },
   {
     "Region": "System",
-    "Function": "StorageSenseFrequency",
-    "Arg": {
-      "Zero": {
-        "Tag": "Month",
-        "ToolTip": "Run Storage Sense every month."
-      },
-      "One": {
-        "Tag": "Default",
-        "ToolTip": "Run Storage Sense during low free disk space (default value)."
-      }
-    }
-  },
-  {
-    "Region": "System",
-    "Function": "StorageSenseTempFiles",
-    "Arg": {
-      "Zero": {
-        "Tag": "Enable",
-        "ToolTip": "Turn on automatic cleaning up temporary system and app files (default value)."
-      },
-      "One": {
-        "Tag": "Disable",
-        "ToolTip": "Turn off automatic cleaning up temporary system and app files."
-      }
-    }
-  },
-  {
-    "Region": "System",
     "Function": "Hibernation",
     "Arg": {
       "Zero": {
@@ -915,20 +873,6 @@
       "One": {
         "Tag": "Default",
         "ToolTip": "Choose when to be notified about changes to your computer: notify me only when apps try to make changes to my computer (default value)."
-      }
-    }
-  },
-  {
-    "Region": "System",
-    "Function": "MappedDrivesAppElevatedAccess",
-    "Arg": {
-      "Zero": {
-        "Tag": "Enable",
-        "ToolTip": "Turn on access to mapped drives from app running with elevated permissions with Admin Approval Mode enabled."
-      },
-      "One": {
-        "Tag": "Disable",
-        "ToolTip": "Turn off access to mapped drives from app running with elevated permissions with Admin Approval Mode enabled (default value)."
       }
     }
   },
@@ -1369,15 +1313,15 @@
   {
     "Region": "System",
     "Function": "InstallDotNetRuntimes -Runtimes",
-    "ToolTip": "Install the latest .NET Desktop Runtime 6, 8 x64.",
+    "ToolTip": "Install the latest .NET Desktop Runtime 8, 9 x64.",
     "Arg": {
       "Zero": {
-        "Tag": "NET6x64",
-        "ToolTip": ".NET Desktop Runtime 6 x64."
-      },
-      "One": {
         "Tag": "NET8x64",
         "ToolTip": ".NET Desktop Runtime 8 x64."
+      },
+      "One": {
+        "Tag": "NET9x64",
+        "ToolTip": ".NET Desktop Runtime 9 x64."
       }
     }
   },
@@ -1406,20 +1350,6 @@
       "One": {
         "Tag": "Disable",
         "ToolTip": "Do not prevent desktop shortcut creation upon Microsoft Edge update (default value)."
-      }
-    }
-  },
-  {
-    "Region": "System",
-    "Function": "SATADrivesRemovableMedia",
-    "Arg": {
-      "Zero": {
-        "Tag": "Disable",
-        "ToolTip": "Prevent all internal SATA drives from showing up as removable media in the taskbar notification area."
-      },
-      "One": {
-        "Tag": "Default",
-        "ToolTip": "Show up all internal SATA drives as removeable media in the taskbar notification area (default value)."
       }
     }
   },
@@ -1496,20 +1426,6 @@
       "One": {
         "Tag": "Enable",
         "ToolTip": "Enable Cortana autostarting (default value)."
-      }
-    }
-  },
-  {
-    "Region": "UWP apps",
-    "Function": "TeamsAutostart",
-    "Arg": {
-      "Zero": {
-        "Tag": "Disable",
-        "ToolTip": "Disable Microsoft Teams autostarting."
-      },
-      "One": {
-        "Tag": "Enable",
-        "ToolTip": "Enable Microsoft Teams autostarting (default value)."
       }
     }
   },

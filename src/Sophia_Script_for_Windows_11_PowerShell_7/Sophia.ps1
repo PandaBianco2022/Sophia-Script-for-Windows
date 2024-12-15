@@ -2,8 +2,8 @@
 	.SYNOPSIS
 	Default preset file for "Sophia Script for Windows 11 (PowerShell 7)"
 
-	Version: 6.7.2
-	Date: 29.10.2024
+	Version: 6.7.3
+	Date: 28.11.2024
 
 	Copyright (c) 2014—2024 farag, Inestic & lowl1f3
 
@@ -21,7 +21,7 @@
 	.\Sophia.ps1 -Functions "DiagTrackService -Disable", "DiagnosticDataLevel -Minimal", UninstallUWPApps
 
 	.EXAMPLE Download and expand the latest Sophia Script version archive (without running) according which Windows and PowerShell versions it is run on
-	irm script.sophi.app -useb | iex
+	iwr script.sophia.team -useb | iex
 
 	.NOTES
 	Supported Windows 11 versions
@@ -31,7 +31,7 @@
 	.NOTES
 	To use the TAB completion for functions and their arguments dot source the Functions.ps1 script first:
 		. .\Function.ps1 (with a dot at the beginning)
-	Read more in the Functions.ps1 file
+	Read more at https://github.com/farag2/Sophia-Script-for-Windows?tab=readme-ov-file#how-to-run-the-specific-functions
 
 	.LINK GitHub
 	https://github.com/farag2/Sophia-Script-for-Windows
@@ -56,7 +56,7 @@
 #>
 
 #Requires -RunAsAdministrator
-#Requires -Version 7.4
+
 
 [CmdletBinding()]
 param
@@ -68,9 +68,9 @@ param
 
 Clear-Host
 
-$Host.UI.RawUI.WindowTitle = "Sophia Script for Windows 11 v6.7.2 (PowerShell 7) | Made with $([System.Char]::ConvertFromUtf32(0x1F497)) of Windows | $([System.Char]0x00A9) farag, Inestic & lowl1f3, 2014$([System.Char]0x2013)2024"
+$Host.UI.RawUI.WindowTitle = "Sophia Script for Windows 11 v6.7.3 (PowerShell 7) | Made with $([System.Char]::ConvertFromUtf32(0x1F497)) of Windows | $([System.Char]0x00A9) farag, Inestic & lowl1f3, 2014$([System.Char]0x2013)2024"
 
-# Check whether all files were expanded before running
+# Checking whether all files were expanded before running
 $ScriptFiles = @(
 	"$PSScriptRoot\Localizations\de-DE\Sophia.psd1",
 	"$PSScriptRoot\Localizations\en-US\Sophia.psd1",
@@ -113,20 +113,25 @@ catch
 	Import-LocalizedData -BindingVariable Global:Localization -UICulture en-US -BaseDirectory $PSScriptRoot\Localizations -FileName Sophia
 }
 
-# Check whether script is not running via PowerShell (x86)
+# Checking whether script is the correct PowerShell version
 try
 {
 	Import-Module -Name $PSScriptRoot\Manifest\Sophia.psd1 -PassThru -Force -ErrorAction Stop
 }
 catch [System.InvalidOperationException]
 {
-	Write-Warning -Message $Localization.PowerShellx86Warning
+	Write-Warning -Message $Localization.UnsupportedPowerShell
 
 	Write-Verbose -Message "https://t.me/sophia_chat" -Verbose
 	Write-Verbose -Message "https://discord.gg/sSryhaEv79" -Verbose
 
 	exit
 }
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Preset configuration starts here
+# Отсюда начинается настройка пресета
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 <#
 	.SYNOPSIS
@@ -361,11 +366,11 @@ OpenFileExplorerTo -ThisPC
 # Открывать проводник для "Быстрый доступ" (значение по умолчанию)
 # OpenFileExplorerTo -QuickAccess
 
-# Disable the File Explorer compact mode (default value)
+# Disable File Explorer compact mode (default value)
 # Отключить компактный вид проводника (значение по умолчанию)
 FileExplorerCompactMode -Disable
 
-# Enable the File Explorer compact mode
+# Enable File Explorer compact mode
 # Включить компактный вид проводника
 # FileExplorerCompactMode -Enable
 
@@ -456,14 +461,6 @@ SearchHighlights -Hide
 # Show search highlights (default value)
 # Показать главное в поиске (значение по умолчанию)
 # SearchHighlights -Show
-
-# Hide Copilot button on the taskbar
-# Скрыть кнопку Copilot с панели задач
-CopilotButton -Hide
-
-# Show Copilot button on the taskbar (default value)
-# Отобразить кнопку Copilot на панели задач (значение по умолчанию)
-# CopilotButton -Show
 
 # Hide the Task view button from the taskbar
 # Скрыть кнопку "Представление задач" с панели задач
@@ -625,7 +622,6 @@ NavigationPaneExpand -Disable
 #endregion OneDrive
 
 #region System
-#region StorageSense
 # Turn on Storage Sense
 # Включить Контроль памяти
 StorageSense -Enable
@@ -633,23 +629,6 @@ StorageSense -Enable
 # Turn off Storage Sense (default value)
 # Выключить Контроль памяти (значение по умолчанию)
 # StorageSense -Disable
-
-# Run Storage Sense every month
-# Запускать Контроль памяти каждый месяц
-StorageSenseFrequency -Month
-
-# Run Storage Sense during low free disk space (default value)
-# Запускать Контроль памяти, когда остается мало место на диске (значение по умолчанию)
-# StorageSenseFrequency -Default
-
-# Turn on automatic cleaning up temporary system and app files (default value)
-# Автоматически очищать временные файлы системы и приложений (значение по умолчанию)
-StorageSenseTempFiles -Enable
-
-# Turn off automatic cleaning up temporary system and app files
-# Не очищать временные файлы системы и приложений
-# StorageSenseTempFiles -Disable
-#endregion StorageSense
 
 # Disable hibernation. It isn't recommended to turn off for laptops
 # Отключить режим гибернации. Не рекомендуется выключать на ноутбуках
@@ -682,14 +661,6 @@ AdminApprovalMode -Never
 # Choose when to be notified about changes to your computer: notify me only when apps try to make changes to my computer (default value)
 # Настройка уведомления об изменении параметров компьютера: уведомлять меня только при попытках приложений внести изменения в компьютер (значение по умолчанию)
 # AdminApprovalMode -Default
-
-# Turn on access to mapped drives from app running with elevated permissions with Admin Approval Mode enabled
-# Включить доступ к сетевым дискам при включенном режиме одобрения администратором при доступе из программ, запущенных с повышенными правами
-MappedDrivesAppElevatedAccess -Enable
-
-# Turn off access to mapped drives from app running with elevated permissions with Admin Approval Mode enabled (default value)
-# Выключить доступ к сетевым дискам при включенном режиме одобрения администратором при доступе из программ, запущенных с повышенными правами (значение по умолчанию)
-# MappedDrivesAppElevatedAccess -Disable
 
 # Turn off Delivery Optimization
 # Выключить оптимизацию доставки
@@ -991,12 +962,12 @@ DefaultTerminalApp -WindowsTerminal
 InstallVCRedist
 
 <#
-	Install the latest .NET Desktop Runtime 6, 8 x64
-	Установить последнюю версию .NET Desktop Runtime 6, 8 x64
+	Install the latest .NET Desktop Runtime 8, 9 x64
+	Установить последнюю версию .NET Desktop Runtime 8, 9 x64
 
 	https://dotnet.microsoft.com/en-us/download/dotnet
 #>
-InstallDotNetRuntimes -Runtimes NET6x64, NET8x64
+InstallDotNetRuntimes -Runtimes NET8x64, NET9x64
 
 # Enable proxying only blocked sites from the unified registry of Roskomnadzor. The function is applicable for Russia only
 # Включить проксирование только заблокированных сайтов из единого реестра Роскомнадзора. Функция применима только для России
@@ -1015,14 +986,6 @@ PreventEdgeShortcutCreation -Channels Stable, Beta, Dev, Canary
 # Do not prevent desktop shortcut creation upon Microsoft Edge update (default value)
 # Не предотвращать создание ярлыков на рабочем столе при обновлении Microsoft Edge (значение по умолчанию)
 # PreventEdgeShortcutCreation -Disable
-
-# Prevent all internal SATA drives from showing up as removable media in the taskbar notification area
-# Запретить отображать все внутренние SATA-диски как съемные носители в области уведомлений на панели задач
-SATADrivesRemovableMedia -Disable
-
-# Show up all internal SATA drives as removeable media in the taskbar notification area (default value)
-# Отображать все внутренние SATA-диски как съемные носители в области уведомлений на панели задач (значение по умолчанию)
-# SATADrivesRemovableMedia -Default
 
 # Back up the system registry to %SystemRoot%\System32\config\RegBack folder when PC restarts and create a RegIdleBackup in the Task Scheduler task to manage subsequent backups
 # Создавать копии реестра при перезагрузки ПК и создавать задание RegIdleBackup в Планировщике задания для управления последующими резервными копиями
@@ -1079,14 +1042,6 @@ CortanaAutostart -Disable
 # Enable Cortana autostarting (default value)
 # Включить автозагрузку Кортана (значение по умолчанию)
 # CortanaAutostart -Enable
-
-# Disable Microsoft Teams autostarting
-# Выключить автозагрузку Microsoft Teams
-TeamsAutostart -Disable
-
-# Enable Microsoft Teams autostarting (default value)
-# Включить автозагрузку Microsoft Teams (значение по умолчанию)
-# TeamsAutostart -Enable
 #endregion UWP apps
 
 #region Gaming

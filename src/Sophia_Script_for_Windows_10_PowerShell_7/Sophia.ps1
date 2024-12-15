@@ -2,8 +2,8 @@
 	.SYNOPSIS
 	Default preset file for "Sophia Script for Windows 10 (PowerShell 7)"
 
-	Version: 5.19.2
-	Date: 29.10.2024
+	Version: 5.19.3
+	Date: 28.11.2024
 
 	Copyright (c) 2014—2024 farag, Inestic & lowl1f3
 
@@ -21,7 +21,7 @@
 	.\Sophia.ps1 -Functions "DiagTrackService -Disable", "DiagnosticDataLevel -Minimal", UninstallUWPApps
 
 	.EXAMPLE Download and expand the latest Sophia Script version archive (without running) according which Windows and PowerShell versions it is run on
-	irm script.sophi.app -useb | iex
+	iwr script.sophia.team -useb | iex
 
 	.NOTES
 	Supported Windows 10 versions
@@ -32,7 +32,7 @@
 	.NOTES
 	To use the TAB completion for functions and their arguments dot source the Functions.ps1 script first:
 		. .\Function.ps1 (with a dot at the beginning)
-	Read more in the Functions.ps1 file
+	Read more at https://github.com/farag2/Sophia-Script-for-Windows?tab=readme-ov-file#how-to-run-the-specific-functions
 
 	.LINK GitHub
 	https://github.com/farag2/Sophia-Script-for-Windows
@@ -69,9 +69,9 @@ param
 
 Clear-Host
 
-$Host.UI.RawUI.WindowTitle = "Sophia Script for Windows 10 v5.19.2 (PowerShell 7) | Made with $([System.Char]::ConvertFromUtf32(0x1F497)) of Windows | $([System.Char]0x00A9) farag, Inestic & lowl1f3, 2014$([System.Char]0x2013)2024"
+$Host.UI.RawUI.WindowTitle = "Sophia Script for Windows 10 v5.19.3 (PowerShell 7) | Made with $([System.Char]::ConvertFromUtf32(0x1F497)) of Windows | $([System.Char]0x00A9) farag, Inestic & lowl1f3, 2014$([System.Char]0x2013)2024"
 
-# Check whether all files were expanded before running
+# Checking whether all files were expanded before running
 $ScriptFiles = @(
 	"$PSScriptRoot\Localizations\de-DE\Sophia.psd1",
 	"$PSScriptRoot\Localizations\en-US\Sophia.psd1",
@@ -114,20 +114,25 @@ catch
 	Import-LocalizedData -BindingVariable Global:Localization -UICulture en-US -BaseDirectory $PSScriptRoot\Localizations -FileName Sophia
 }
 
-# Check whether script is not running via PowerShell (x86)
+# Checking whether script is the correct PowerShell version
 try
 {
 	Import-Module -Name $PSScriptRoot\Manifest\Sophia.psd1 -PassThru -Force -ErrorAction Stop
 }
 catch [System.InvalidOperationException]
 {
-	Write-Warning -Message $Localization.PowerShellx86Warning
+	Write-Warning -Message $Localization.UnsupportedPowerShell
 
 	Write-Verbose -Message "https://t.me/sophia_chat" -Verbose
 	Write-Verbose -Message "https://discord.gg/sSryhaEv79" -Verbose
 
 	exit
 }
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Preset configuration starts here
+# Отсюда начинается настройка пресета
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 <#
 	.SYNOPSIS
@@ -354,11 +359,11 @@ OpenFileExplorerTo -ThisPC
 # Открывать проводник для "Быстрый доступ" (значение по умолчанию)
 # OpenFileExplorerTo -QuickAccess
 
-# Expand the File Explorer ribbon
+# Expand File Explorer ribbon
 # Развернуть ленту проводника
 FileExplorerRibbon -Expanded
 
-# Minimize the File Explorer ribbon (default value)
+# Minimize File Explorer ribbon (default value)
 # Свернуть ленту проводника (значение по умолчанию)
 # FileExplorerRibbon -Minimized
 
@@ -446,14 +451,6 @@ CortanaButton -Hide
 # Показать кнопку Кортаны на панели задач (значение по умолчанию)
 # CortanaButton -Show
 
-# Hide Copilot button on the taskbar
-# Скрыть кнопку Copilot с панели задач
-CopilotButton -Hide
-
-# Show Copilot button on the taskbar (default value)
-# Отобразить кнопку Copilot на панели задач (значение по умолчанию)
-# CopilotButton -Show
-
 # Hide the Task View button on the taskbar
 # Скрыть кнопку Просмотра задач
 TaskViewButton -Hide
@@ -509,6 +506,18 @@ SecondsInSystemClock -Show
 # Hide seconds on the taskbar clock (default value)
 # Скрыть секунды в системных часах на панели задач (значение по умолчанию)
 # SecondsInSystemClock -Hide
+
+# Combine taskbar buttons and always hide labels (default value)
+# Объединить кнопки панели задач и всегда скрывать метки (значение по умолчанию)
+TaskbarCombine -Always
+
+# Combine taskbar buttons and hide labels when taskbar is full
+# Объединить кнопки панели задач и скрывать метки при переполнении панели задач
+# TaskbarCombine -Full
+
+# Combine taskbar buttons and never hide labels
+# Объединить кнопки панели задач и никогда не скрывать метки
+# TaskbarCombine -Never
 
 # Unpin the "Microsoft Edge", "Microsoft Store", or "Mail" shortcuts from the taskbar
 # Открепить ярлыки "Microsoft Edge", "Microsoft Store" или "Почта" от панели задач
@@ -650,7 +659,6 @@ NavigationPaneExpand -Disable
 #endregion OneDrive
 
 #region System
-#region StorageSense
 # Turn on Storage Sense
 # Включить Контроль памяти
 StorageSense -Enable
@@ -658,23 +666,6 @@ StorageSense -Enable
 # Turn off Storage Sense (default value)
 # Выключить Контроль памяти (значение по умолчанию)
 # StorageSense -Disable
-
-# Run Storage Sense every month
-# Запускать Контроль памяти каждый месяц
-StorageSenseFrequency -Month
-
-# Run Storage Sense during low free disk space (default value)
-# Запускать Контроль памяти, когда остается мало место на диске (значение по умолчанию)
-# StorageSenseFrequency -Default
-
-# Delete temporary files that apps aren't using
-# Удалять временные файлы, не используемые в приложениях
-StorageSenseTempFiles -Enable
-
-# Do not delete temporary files that apps aren't using (default value)
-# Не удалять временные файлы, не используемые в приложениях (значение по умолчанию)
-# StorageSenseTempFiles -Disable
-#endregion StorageSense
 
 # Disable hibernation. It isn't recommended to turn off for laptops
 # Отключить режим гибернации. Не рекомендуется выключать на ноутбуках
@@ -707,14 +698,6 @@ AdminApprovalMode -Never
 # Choose when to be notified about changes to your computer: notify me only when apps try to make changes to my computer (default value)
 # Настройка уведомления об изменении параметров компьютера: уведомлять меня только при попытках приложений внести изменения в компьютер (значение по умолчанию)
 # AdminApprovalMode -Default
-
-# Turn on access to mapped drives from app running with elevated permissions with Admin Approval Mode enabled
-# Включить доступ к сетевым дискам при включенном режиме одобрения администратором при доступе из программ, запущенных с повышенными правами
-MappedDrivesAppElevatedAccess -Enable
-
-# Turn off access to mapped drives from app running with elevated permissions with Admin Approval Mode enabled (default value)
-# Выключить доступ к сетевым дискам при включенном режиме одобрения администратором при доступе из программ, запущенных с повышенными правами (значение по умолчанию)
-# MappedDrivesAppElevatedAccess -Disable
 
 # Turn off Delivery Optimization
 # Выключить оптимизацию доставки
@@ -1001,7 +984,7 @@ NetworkDiscovery -Enable
 
 <#
 	Uninstall the "PC Health Check" app and prevent it from installing in the future
-	This application is installed with the KB5005463 update to Check whether PC meets the system requirements of Windows 11
+	This application is installed with the KB5005463 update to сheck whether PC meets the system requirements of Windows 11
 
 	Удалить приложение "Проверка работоспособности ПК Windows" и заблокировать его установку в будущем
 	Данное приложение устанавливается обновлением KB5005463 для проверки соответствия компьютера системным требованиям Windows 11
@@ -1019,12 +1002,12 @@ UninstallPCHealthCheck
 InstallVCRedist
 
 <#
-	Install the latest .NET Desktop Runtime 6, 8 x64
-	Установить последнюю версию .NET Desktop Runtime 6, 8 x64
+	Install the latest .NET Desktop Runtime 8, 9 x64
+	Установить последнюю версию .NET Desktop Runtime 8, 9 x64
 
 	https://dotnet.microsoft.com/en-us/download/dotnet
 #>
-InstallDotNetRuntimes -Runtimes NET6x64, NET8x64
+InstallDotNetRuntimes -Runtimes NET8x64, NET9x64
 
 # Enable proxying only blocked sites from the unified registry of Roskomnadzor. The function is applicable for Russia only
 # Включить проксирование только заблокированных сайтов из единого реестра Роскомнадзора. Функция применима только для России
@@ -1043,14 +1026,6 @@ PreventEdgeShortcutCreation -Channels Stable, Beta, Dev, Canary
 # Do not prevent desktop shortcut creation upon Microsoft Edge update (default value)
 # Не предотвращать создание ярлыков на рабочем столе при обновлении Microsoft Edge (значение по умолчанию)
 # PreventEdgeShortcutCreation -Disable
-
-# Prevent all internal SATA drives from showing up as removable media in the taskbar notification area
-# Запретить отображать все внутренние SATA-диски как съемные носители в области уведомлений на панели задач
-SATADrivesRemovableMedia -Disable
-
-# Show up all internal SATA drives as removeable media in the taskbar notification area (default value)
-# Отображать все внутренние SATA-диски как съемные носители в области уведомлений на панели задач (значение по умолчанию)
-# SATADrivesRemovableMedia -Default
 
 # Back up the system registry to %SystemRoot%\System32\config\RegBack folder when PC restarts and create a RegIdleBackup in the Task Scheduler task to manage subsequent backups
 # Создавать копии реестра при перезагрузки ПК и создавать задание RegIdleBackup в Планировщике задания для управления последующими резервными копиями
@@ -1379,6 +1354,14 @@ EditWithPaint3DContext -Hide
 # Show the "Edit with Paint 3D" item in the media files context menu (default value)
 # Отобразить пункт "Изменить с помощью Paint 3D" в контекстном меню медиа-файлов (значение по умолчанию)
 # EditWithPaint3DContext -Show
+
+# Hide the "Edit" item from the images context menu
+# Скрыть пункт "Изменить" из контекстного меню изображений
+ImagesEditContext -Hide
+
+# Show the "Edit" item in images context menu (default value)
+# Отобразить пункт "Изменить" в контекстном меню изображений (значение по умолчанию)
+# ImagesEditContext -Show
 
 # Hide the "Print" item from the .bat and .cmd context menu
 # Скрыть пункт "Печать" из контекстного меню .bat и .cmd файлов
